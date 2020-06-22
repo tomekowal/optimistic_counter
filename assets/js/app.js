@@ -28,6 +28,7 @@ Hooks.ServerCounter = {
     let server_counter = parseInt(document.getElementById("server_counter").innerHTML);
     if (client_clock <= server_clock) {
       client_counter.innerHTML = server_counter;
+      client_clock.innerHTML = server_clock;
     }
   }
 }
