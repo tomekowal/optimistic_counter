@@ -17,7 +17,7 @@ defmodule OptiisticCounterWeb.Router do
   scope "/", OptiisticCounterWeb do
     pipe_through :browser
 
-    live "/", PageLive, :index
+    live "/", CounterLive, :index
   end
 
   # Other scopes may use custom stacks.

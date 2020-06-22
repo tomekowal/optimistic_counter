@@ -1,0 +1,4 @@
+<h1>Counter</h1>
+<p>Client <span id="client_counter" phx-update="ignore">0</span> Clock <span id="client_clock" phx-update="ignore">0<p>
+<p>Server <span id="server_counter" phx-hook="ServerCounter"><%= @counter %></span> Clock <span id="server_clock"><%= @server_clock %></span></p>
+<button phx-click="inc" phx-hook="Button">Increment</button>

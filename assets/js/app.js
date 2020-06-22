@@ -18,7 +18,31 @@ import NProgress from "nprogress"
 import {LiveSocket} from "phoenix_live_view"
 
 let csrfToken = document.querySelector("meta[name='csrf-token']").getAttribute("content")
-let liveSocket = new LiveSocket("/live", Socket, {params: {_csrf_token: csrfToken}})
+
+let Hooks = {}
+Hooks.ServerCounter = {
+  updated() {
+    let client_clock = parseInt(document.getElementById("client_clock").innerHTML);
+    let server_clock = parseInt(document.getElementById("server_clock".innerHTML));
+    let client_counter = document.getElementById("client_counter");
+    let server_counter = parseInt(document.getElementById("server_counter").innerHTML);
+    if (client_clock <= server_clock) {
+      client_counter.innerHTML = server_counter;
+    }
+  }
+}
+Hooks.Button = {
+  mounted() {
+    this.el.addEventListener("click", e => {
+      let client_clock = document.getElementById("client_clock");
+      let client_counter = document.getElementById("client_counter");
+      client_clock.innerHTML = parseInt(client_clock.innerHTML) + 1;
+      client_counter.innerHTML = parseInt(client_counter.innerHTML) + 1;
+    })
+  }
+}
+
+let liveSocket = new LiveSocket("/live", Socket, {hooks: Hooks, params: {_csrf_token: csrfToken}})
 
 // Show progress bar on live navigation and form submits
 window.addEventListener("phx:page-loading-start", info => NProgress.start())
